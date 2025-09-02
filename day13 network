@@ -4,8 +4,10 @@ Domain Administrators: This is typically the highest account level you will find
 Services: Accounts used by software to perform their tasks such as back-ups or antivirus scans.
 Domain users: Accounts typically used by employees. These should have just enough privileges to do their daily jobs. For example, a system administrator may restrict a user's ability to install and uninstall software.
 Local accounts: These accounts are only valid on the local system and can not be used over the domain.
-
-
+windows cmd:
+net users  (list all users)
+systeminfo | findstr /B /C: "OS Name"/C: "OS Version" (l output information about the operating system. This should be used to do further research on whether a privilege escalation vulnerability exists for this version.)
+wmic service list ( list services installed on the target system)
 
 
 
