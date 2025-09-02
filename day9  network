@@ -1,3 +1,66 @@
+#Key Takeaway
+How to use wireshark)
+
+user@thm$ sudo wireshark /root/Rooms/AoC3/Day9/AoC3.pcap (pcap is capture packet)
+how to use Berkeley Packet Filter (BPF)
+
+🎯 IP
+ip.addr == 192.168.1.10 → packets to/from a specific IP
+ip.src == 192.168.1.10 → packets from a source IP
+ip.dst == 192.168.1.20 → packets to a destination IP
+ip.len > 1000 → large packets
+
+🌐 HTTP
+http → all HTTP traffic
+http.host contains "google.com" → traffic to a domain
+http.request → only HTTP requests
+http.response → only HTTP responses
+http.request.uri contains ".php" → requests for PHP pages
+http.set_cookie → packets setting cookies
+
+🔒 HTTPS / TLS
+tls.handshake → TLS handshakes
+tls.handshake.type == 1 → TLS client hello
+tls.handshake.type == 2 → TLS server hello
+
+🖧 TCP / UDP
+tcp.port == 22 → SSH
+udp.port == 161 → SNMP
+tcp.analysis.flags → TCP analysis (retransmissions, dup ACKs, etc.)
+tcp contains "USER" → look for FTP usernames in TCP payload
+
+📡 DNS
+dns → all DNS traffic
+dns.flags.rcode != 0 → failed DNS queries
+dns.qry.type == 1 → A records
+dns.qry.type == 28 → AAAA records (IPv6)
+dns.qry.name contains "example.com"
+
+📂 FTP
+ftp → FTP control traffic
+ftp.request.command == "USER" → FTP login username
+ftp.request.command == "PASS" → FTP login password
+ftp-data → files transferred over FTP
+
+📧 Email (SMTP/IMAP/POP3)
+smtp → SMTP traffic
+smtp.req.command == "AUTH" → look for authentication
+imap or pop → mail retrieval protocols
+
+📞 VoIP
+sip → SIP signaling
+rtp → RTP streams
+rtcp → RTP control protocol
+
+🔎 Misc
+icmp → ping/echo requests
+arp → ARP packets
+bootp or dhcp → DHCP traffic
+ssl.record.version == 0x0303 → TLS 1.2 traffic
+
+so i search ftp-data i found file then i right click follow done i found the flag in plaintext
+
+
 Task 14
 [Day 9] Networking Where Is All This Data Going
 Download Task Files
