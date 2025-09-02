@@ -1,6 +1,25 @@
 yas this basically stalkin someone instagram or others credential  my frined are expert in stalking girls already
 
 
+googlde dorking:
+Term	Purpose	Example
+site 	Specifically searches that particular site and lists all the results for that site.
+site:"www.google.com"
+filetype	Searches for a particular filetype mentioned in the query.
+filetype:"pdf"
+link	Searches for external links to pages.
+link:"keyword"
+inurl	Searches for a URL matching one of the keywords.
+inurl:"keyword"
+before/after	Used to search within a particular date range.
+(before:2000-01-01 after:2001-01-01)
+
+
+a useful app called Instant Username Search (search many platform is the username is available)
+
+
+
+
 Task 21
 [Day 16] OSINT Ransomware Madness
 Story
