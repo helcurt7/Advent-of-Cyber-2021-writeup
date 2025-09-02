@@ -1,3 +1,96 @@
+#Key Takeaway
+
+SQL injection
+usually using Mysql now use NoSQL
+
+1.)first ssh thm@ipadd -p 2222 (then key in password)
+2.)connect to database
+MongoDB
+user@machine$ mongo
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("1273eab2-4dae-42a8-8f67-a133b870872b") }
+MongoDB server version: 4.4.10
+3)Now let's use the show command to list all the databases that we have in MongoDB on our target machine:
+
+MongoDB
+> show databases
+admin     0.000GB
+config    0.000GB
+local     0.000GB
+logindb   0.000GB
+thm-test  0.000GB
+thmdb     0.000GB
+
+4)
+> use AoC3  (use the database if not exist it will create one )
+switched to db AoC3
+> db.createCollection("users")  (create collection of "users" which is table in mysql )
+{ "ok" : 1 }
+> db.createCollection("roles")  (create "roles")
+{ "ok" : 1 } 
+> db.getCollectionNames();      (show table in database)
+[ "roles", "users" ]
+> db.users.insert({id:"1", username: "admin", email: "admin@thm.labs", password: "idk2021!"})(insert into table users )
+WriteResult({ "nInserted" : 1 })  
+
+
+no need to  
+
+CREATE TABLE users (
+  id INT PRIMARY KEY,
+  username VARCHAR(50),
+  email VARCHAR(100),
+  password VARCHAR(100)
+);
+
+INSERT INTO users (id, username, email, password)
+VALUES ("1", "admin", "admin@thm.labs", "idk2021!");
+
+> db.users.find() (like select * from users)
+{ "_id" : ObjectId("6183dc871ebe3f0c4b779a31"), "id" : "1", "username" : "admin", "email" : "admin@thm.labs", "password" : "idk2021!" }
+> db.users.findOne({username: "admin", password: "adminpass"})
+{
+        "_id" : ObjectId("6183ef6292dea43d75f0c820"),
+        "id" : "1",
+        "username" : "admin",
+        "email" : "admin@thm.labs",
+        "password" : "adminpass"
+}
+> db.users.findOne({username: "admin", password: "adminpasss"})
+null
+
+> db.users.update({id:"2"}, {$set: {username: "tryhackme"}});  (update set id 2 username to "tryhackme"
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("6183dc871ebe3f0c4b779a31"), "id" : "1", "username" : "admin", "email" : "admin@thm.labs", "password" : "idk2021!" }
+{ "_id" : ObjectId("6183dc911ebe3f0c4b779a32"), "id" : "2", "username" : "tryhackme", "email" : "user@thm.labs", "password" : "password1!" }
+
+> db.users.remove({'id':'2'}) (remove lo)
+> db.users.drop()
+
+$eq - matches records that equal to a certain value
+$ne - matches records that are not equal to a certain value
+$gt - matches records that are greater than a certain value.
+$where - matches records based on Javascript condition
+$exists - matches records that have a certain field
+$regex - matches records that satisfy certain regular expressions.
+$and equivalent to AND in MySQL
+$or equivalent to OR in MySQL
+$eq equivalent to = in MySQL
+
+
+Now let's say if we wanted to log in to a system as another user who is not admin. In this case, we can also inject into a username field to be as follows,
+
+MongoDB
+> db.users.findOne({username:{"$ne":"admin"},password:{"$ne":"xyz"}})
+
+  http://example.thm.labs/search?username[$eq]=admin&role[$ne]=user 
+we inject this on website making the web to retrieve username that are equal to admin and  role that are not user
+
+
+
+
+
 Web Exploitation Migration Without Security
 Start Machine
 The development team that handles gift requests from Children migrated over to a new technology stack. In doing so, they left their application vulnerable, and Grinch Enterprises now controls access to the system. Fortunately, Grinch enterprises forgot to patch the system so you can use the same vulnerability to retrieve the gift requests for the students.
