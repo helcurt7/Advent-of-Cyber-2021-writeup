@@ -1,3 +1,39 @@
+#Key Takeaway
+
+ChatGPT said:
+
+Got it 👍 Let’s sum up the Nmap commands used in that TryHackMe task:
+
+🔍 Basic Port Scans
+TCP Connect Scan (completes handshake):
+nmap -sT MACHINE_IP
+
+
+TCP SYN Scan (stealthier, doesn’t finish handshake):
+nmap -sS MACHINE_IP
+
+🔍 Service & Version Detection
+Check what service and version runs on each open port:
+nmap -sV MACHINE_IP
+
+🔍 Full Port Range Scan
+Scan all 65,535 TCP ports (not just the top 1000):
+nmap -p- MACHINE_IP
+
+(or equivalently)
+
+nmap -p1-65535 MACHINE_IP
+
+
+✅ Example Workflow in the challenge
+nmap -sT MACHINE_IP → found 22 (SSH) and 80 (HTTP) open.
+nmap -sS MACHINE_IP → confirmed the same results.
+nmap -sV MACHINE_IP → revealed Apache httpd 2.4.49.
+Researched vulnerability → CVE-2021-42013.
+nmap -p- MACHINE_IP → discovered 20212/tcp (telnetd) backdoor.
+
+
+
 Task 15
 [Day 10] Networking Offensive Is The Best Defence
 Start Machine
