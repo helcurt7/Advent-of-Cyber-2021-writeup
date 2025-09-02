@@ -1,3 +1,9 @@
+#Key Takeaway
+LFI (local file inclusion) vulnerability then make it to takeover become RCE(Remote Code Execution)
+for LFI
+
+
+
 Task 11
 [Day 6] Web Exploitation Patch Management Is Hard
 Start Machine
