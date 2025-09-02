@@ -1,6 +1,11 @@
+#Key Takeaway
+
+for me  i use burpsuite sniper to bruteforce the password
+
 Task 9
 [Day 4] Web Exploitation Santa's Running Behind
 Start Machine
+
 
 
 McSysAdmin managed to reset everyone's access except Santa's! Santa's expected some urgent travel itinerary for his route over Christmas. Rumour has it that Santa never followed the password security recommendations. Can you use bruteforcing to help him access his accounts?
