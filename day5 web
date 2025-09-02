@@ -1,3 +1,9 @@
+#Key Takeaway
+
+use xss javascript and html injection knowledge 
+<script>fetch('/settings?new_password=pass123');</script> basically just send this xss into the forum of the website  known as stored xss so everytime others 
+people login or viist the forum page of the website their password will changae to the new setted password
+
 [Day 5] Web Exploitation Pesky Elf Forum
 Start Machine
 Story
