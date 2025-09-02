@@ -1,3 +1,47 @@
+🔑 Key Takeaway – NFS (Network File System)
+
+👉 NFS allows file transfer and sharing between Linux and Windows.
+If a target exposes NFS, you can mount its shared folders locally and access files.
+
+📌 Steps
+Scan for NFS service
+1)nmap -Pn <target-ip>
+
+Look at the SERVICE column → if it shows nfs or 2049/tcp, NFS is running.
+Check for available NFS shares
+
+2)showmount -e <target-ip>
+
+
+This lists all exported (shared) directories.
+
+Example output:
+
+Export list for <ip>:
+/shared_data   *
+/backup        192.168.1.0/24
+
+
+Create a local directory to mount the share
+
+3)mkdir anyt
+
+
+anyt is just your chosen mount folder (can be any name).
+
+Mount the NFS share to your local directory
+
+mount <target-ip>:<share-name> anyt
+
+
+Example:
+
+4)mount 192.168.1.10:/shared_data anyt
+
+
+✅ Now, the remote share is mounted under your local anyt folder, and you can browse/copy/edit files just like normal local files.
+
+
 Task 17
 [Day 12] Networking Sharing Without Caring
 Start Machine
