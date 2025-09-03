@@ -1,3 +1,55 @@
+#Key takeaway
+YARA RULES 
+Structure of a YARA Rule
+rule rulename {
+  meta:
+    author = "name"
+    description = "what this rule does"
+    created = "date"
+
+  strings:
+    $a = "text"
+    $b = {4D 5A}   // hex pattern
+    $c = /regex/   // regex pattern
+
+  condition:
+    $a and $b
+}
+
+
+rule → defines the rule name.
+meta → optional info (author, description, date, reference).
+strings → defines what to look for:
+"text" → plain text.
+{4D 5A} → hex bytes.
+/regex/ → regex pattern.
+
+condition → logic for matching (must be true for a "hit").
+🔹 Common Condition Operators
+and → all must be true.
+or → any one is true.
+not → match must not be present.
+Examples:
+$a and $b → both strings must appear.
+$a or $b → at least one string must appear.
+not $a → hit only if $a does not appear.
+
+🔹 Running YARA
+
+yara [options] rule_file target_file
+
+Useful Options:
+-m → show metadata on match.
+-s → show matched strings and offsets.
+-n → print only rules that did NOT hit.
+-c → print only the number of matches.
+
+
+
+
+
+
+
 Task 26
 [Day 21] Blue Teaming Needles In Computer Stacks
 Start Machine
