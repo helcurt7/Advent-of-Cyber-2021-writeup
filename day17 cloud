@@ -14,7 +14,7 @@ FOUND IT
 
 4)create profile 
 aws configure --profile osas
-enter access key in wp-config
+enter access key in wp-config then u logged in EZ
 cd ..
 u find .aws directory because u have aws profile
 cd .aws
