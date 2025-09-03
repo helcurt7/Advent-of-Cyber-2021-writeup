@@ -1,10 +1,51 @@
 #Key Takeaway
 Docker with aws
-docker pull
+docker pull public.ioaoi
+docker run -it pubicao
+$ls -la,pwd,env,printenv( those to know the environment in the docker wejust pull)
+mkdir aoc
+cd aoc
+docker save -o aoc.tar publicajsdi (save container as aoc.tar )
+tar -xf aoc.tar 
+ls
+see manifest.json
+
+THIS IS FOR MY WEB LEARNING express framework
+
+1)subl Dockerfile (like a box)
+write those
+BEFORE DOCKING
+npm init -y
+npm i pg ejs express
+npm i --save-dev nodemon
 
 
+FROM node:18                  //# Step 1: Use Node.js base image
+WORKDIR /usr/src/app          //# Step 2: Set working directory inside container
+COPY package*.json ./         //# Step 3: Copy package.json and install dependencies
+RUN npm install               
+COPY . .                      //# Step 4: Copy the rest of the source code
+EXPOSE 3000                   //# Step 5: Expose port (Express usually runs on 3000)
+CMD ["node", "index.js"]      //# Step 6: Start app
+
+2)docker build -t mycontainer
+3)docker run -p 3000:3000 mycontainer
+
+docker run   -t mycontainer
+docker ps (what docker are runnning)
+
+git
+git init
+git add .
+git commit -m "First commit with Dockerfile"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/my-express-app.git
+git push -u origin main
 
 
+for redability when seeing json file
+apt install jq -y 
+cat manifest.json | jq
 
 
 
