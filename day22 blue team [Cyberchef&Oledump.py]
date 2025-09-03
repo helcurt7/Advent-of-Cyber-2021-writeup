@@ -1,3 +1,28 @@
+#Key Takeaway
+cyberchef (useful local hosted website for encoding and decoding stuff and stack the encode)
+oledump.py 
+(Types of Files That Can Have Macros
+Word → .docm, .doc (older format), .dotm
+Excel → .xlsm, .xls (older format), .xltm
+PowerPoint → .pptm, .potm) 
+(Notice the "m" → stands for "macro-enabled")
+
+oledump.py file.doc -s 8 → extracts stream 8 (here it’s Module1).
+oledump.py file.doc -s 8 -v → also decompresses VBA macro code if it’s compressed.
+Example output:
+
+  1:       560 '\x01CompObj'
+  2:       116 '\x05DocumentSummaryInformation'
+  3:       112 '\x05SummaryInformation'
+  8:    12654 'Macros/VBA/Module1'
+  9:     2312 'Macros/VBA/ThisDocument'
+
+
+
+
+
+
+
 Task 27
 [Day 22] Blue Teaming How It Happened
 Start Machine
