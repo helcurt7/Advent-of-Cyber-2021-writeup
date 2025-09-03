@@ -1,3 +1,16 @@
+#Key takeaway
+file <filetype>
+strings <ooutput only readable plain text not binary garbage>
+md5sum and sha256sum <file> (act as fingerprint of the file will change the hash once the file has been modify) then put  it in VIRUSTOTAL (have 60+ antivirus and generate a report)
+
+
+
+
+
+
+
+
+
 Task 25
 [Day 20] Blue Teaming What's the Worst That Could Happen?
 Start Machine
