@@ -1,3 +1,17 @@
+#Key Takeaway
+Docker with aws
+docker pull
+
+
+
+
+
+
+
+
+
+
+
 Task 23
 [Day 18] Cloud Playing With Containers
 Please note: If you are on the TryHackMe free plan, the attack box does not have internet access and cannot reach AWS. You will need to install curl and the AWS CLI on your own machine in order to complete this challenge. Instructions for installing the AWS CLI are here: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
